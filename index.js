@@ -2,7 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var userList=[];
-var i=1;
+
 app.get('/',function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
@@ -10,30 +10,26 @@ app.get('/',function(req, res){
 
 io.on('connection', function(socket){
   var newUser='匿名';
-  var time=new Date();
- 
-  var nowTime=time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
-  //io.sockets.emit('chat message',{data:'New',time:nowTime,user:''});
   userList.push(newUser);
-   
-  io.sockets.emit('chat message',userList);
-io.emit('chat message','現在人數:'+i);
+  io.sockets.emit('chat message',newUser+'進來了，在線名單:'+userList);
+  io.sockets.emit('chat message','現在人數:'+userList.length);
+  
   socket.on('chat message', function(msg){
-    io.emit('chat message', newUser+':'+msg);
-  });
-  i++;
+	    var time=new Date();
+	    var	nowTime=time.getHours()+"時"+time.getMinutes() +"分"+time.getSeconds()+"秒";
+	    io.emit('chat message', newUser+':'+msg+'    時間: '+nowTime);
+	  });
+
   socket.on('disconnect',function(){
-	userList.splice(userList.indexOf(newUser),1);
 	var time=new Date();
-        var nowTime=time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
-     //io.sockets.emit('chat message',{data:newUser+'out',time:nowTime,user:''});
-        io.sockets.emit('newUser',userList);
-	--i;
-	});
+	var nowTime=time.getHours()+"時"+time.getMinutes() +"分"+time.getSeconds()+"秒";
+	userList.splice(userList.indexOf(newUser),1);
+	io.sockets.emit('chat message',newUser+'離線了，在線名單:'+userList);
+	io.sockets.emit('chat message','現在人數:'+userList.length);
+   });
 
 });
 
 http.listen(5000, function(){
 	console.log('listening on *:5000');
 });
-
