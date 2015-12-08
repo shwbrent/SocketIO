@@ -16,27 +16,27 @@
   <body>
     <ul id="messages"></ul>
     <form action="">
-      <input id="m" autocomplete="off" placeholder="請輸入訊息~~"/><button>Send</button>
+      <input class='btn btn-block btn-primary' id='m'  autocomplete="off" placeholder="請輸入訊息~~" required/><button>Send</button>
     </form>
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 	
-	  $("input").focus(function(){
-	  	$("input").css("background-color","#");
-	  });
 	  $("input").blur(function(){
 	    $("input").css("background-color","white");
 	  });
-  var socket = io();
-  $('form').submit(function(){
-    socket.emit('chat message', $('#m').val());
-    $('#m').val('');
-    return false;
-  });
-  socket.on('chat message', function(msg){
-    $('#messages').append($('<li>').text(msg));
-  });
+
+	  var socket = io();
+	  $('form').submit(function(){
+	    socket.emit('chat message', $('#m').val());
+	    $('#m').val('');
+	    return false;
+	  });
+
+
+	  socket.on('chat message', function(msg){
+	    $('#messages').append($('<li>').text(msg));
+	  });
 </script>
   </body>
 </html>
