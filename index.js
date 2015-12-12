@@ -10,10 +10,12 @@ app.get('/',function(req, res){
 
 io.on('connection', function(socket){
   var newUser='匿名';
+
   userList.push(newUser);
-  io.sockets.emit('chat message',newUser+'進來了，在線名單:'+userList);
-  io.sockets.emit('chat message','現在人數:'+userList.length);
-  
+   
+  io.sockets.emit('Comming message',newUser+'進來了，在線名單:'+userList);
+  io.sockets.emit('Comming message','現在人數:'+userList.length);
+
   socket.on('chat message', function(msg){
 	    var time=new Date();
 	    var	nowTime=time.getHours()+"時"+time.getMinutes() +"分"+time.getSeconds()+"秒";
@@ -24,8 +26,8 @@ io.on('connection', function(socket){
 	var time=new Date();
 	var nowTime=time.getHours()+"時"+time.getMinutes() +"分"+time.getSeconds()+"秒";
 	userList.splice(userList.indexOf(newUser),1);
-	io.sockets.emit('chat message',newUser+'離線了，在線名單:'+userList);
-	io.sockets.emit('chat message','現在人數:'+userList.length);
+	io.sockets.emit('Comming message',newUser+'離線了，在線名單:'+userList);
+	io.sockets.emit('Comming message','現在人數:'+userList.length);
    });
 
 });
