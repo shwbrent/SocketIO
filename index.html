@@ -30,10 +30,14 @@
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 	
-	  $("input").blur(function(){
-	    $("input").css("background-color","white");
+	  $("input").focus(function(){
+		$("input").css("background-color","#FFFFCC");
 	  });
 
+	  $("input").blur(function(){
+		$("input").css("background-color","white");
+	  });
+	  
 	  var socket = io();
 	  $('form').submit(function(){
 	    socket.emit('chat message', $('#m').val());
