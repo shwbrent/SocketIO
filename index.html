@@ -4,28 +4,39 @@
     <title>socketIO聊天室</title>
 	<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.css" rel="stylesheet">
     <style>
+      .pull-right{
+	float: right;
+	}
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-	.btn-default {
+
+      .btn-default {
 	    box-shadow: 1px 2px 5px #000000; 
 	}
     </style>
-  </head>
-  <body>
-	
 
-    <ul id="messages"></ul>
+<!------------------------------------------------------------------->
+
+  </head>
+  <body style="padding-left:5% padding-right:5%">
+	<div class="panel panel-default">
+		<div class="panel-heading" id="comming">這裡是快樂聊天室 ~~ \ ^０^ / !!</div>
+		<div class="panel-body" id="messages"></div>
+    	</div>
     <form action="">
-	<div class='row container-fluid well well-sm'>
-	    <span class='col-xs-9'>
+	<div class='row container-fluid well well-sm navbar-fixed-bottom'>
+	    <span class='col-xs-11  well-small'>
 		<input class='btn btn-md form-control' id='m'  autocomplete="off" placeholder="請輸入訊息~~" 	required/>
 	     </span>
-	   <div class=' col-xs-3 text-center'>
- 	     <button class='btn btn-default btn-success btn-sm'>Send <span class=' glyphicon glyphicon-envelope'></span></button>
+	   <div class=' col-xs-1 text-center  well-small'>
+ 	     <button class='pull-right btn btn-default btn-success btn-sm'>Send <span class=' glyphicon glyphicon-envelope'></span></button>
 	   </div>	
 	</div>
     </form>
+
+
+<!------------------------------------------------------------------->
+
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
@@ -33,7 +44,6 @@
 	  $("input").focus(function(){
 		$("input").css("background-color","#FFFFCC");
 	  });
-
 	  $("input").blur(function(){
 		$("input").css("background-color","white");
 	  });
@@ -44,10 +54,12 @@
 	    $('#m').val('');
 	    return false;
 	  });
-
-
 	  socket.on('chat message', function(msg){
 	    $('#messages').append($('<li>').text(msg));
+	  });
+
+	  socket.on('Comming message', function(msg){
+	    $('#comming').append($('<li>').text(msg));
 	  });
 </script>
   </body>
