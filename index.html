@@ -5,25 +5,39 @@
     <title>socketIO聊天室</title>
 	<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.css" rel="stylesheet">
     <style>
-      .pull-right{
-	float: right;
-	}
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-
-      .btn-default {
-	    box-shadow: 1px 2px 5px #000000; 
+	.pull-right{
+		float: right;
 	}
 
+	#comming{
+		list-style-type:none;
+		float: right;
+	}
+	#messages { 
+		list-style-type: none;
+		float: left;
+		margin: 0; 
+		padding: 0; 
+		width:30;
+		overflow: auto;
+	}
+	#messages li { 
+		list-style-type:none
+	}
+	.btn-default {
+		box-shadow: 1px 2px 5px #000000; overflow: auto;
+	}
     </style>
 
 
   </head>
   <body>
-	<div class="panel panel-default ">
-		<div class="panel-heading btn btn-block" id="comming">這裡是快樂聊天室 ~~ \ ^０^ / !!</div>
-		<div class="panel-body" id="messages"></div>
-    	</div>
+		<div  class="panel panel-default " >
+		<div  class="panel-heading btn btn-block" id="comming">這裡是快樂聊天室 ~~ \ ^０^ / !!</div>
+			<div  class="panel-body" id="messages"style="width:90vmin; height:87vmin;padding: 5px 10px;
+		overflow-y:scroll;"></div>
+		</div>
+
     <form action="">
 	<div class='row container-fluid well well-sm navbar-fixed-bottom'>
 	    <span class='col-xs-11  well-small'>
@@ -58,7 +72,7 @@
 	  });
 
 	  socket.on('Comming message', function(msg){
-	    $('#comming').append($('<li>').text(msg));
+	    $('#comming').html($('<li>').text(msg));
 	  });
 </script>
   </body>
