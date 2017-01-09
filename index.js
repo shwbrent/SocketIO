@@ -13,21 +13,21 @@ io.on('connection', function(socket){
 
   userList.push(newUser);
    
-  io.sockets.emit('Comming message',newUser+'進來了，在線名單:'+userList);
-  io.sockets.emit('Comming message','現在人數:'+userList.length);
+  //io.sockets.emit('Comming message',newUser+'進來了，在線名單:'+userList);
+  io.sockets.emit('Comming message','這裡是快樂聊天室 ~~ \ ^０^ / !!現在人數:'+userList.length);
 
   socket.on('chat message', function(msg){
 	    var time=new Date();
 	    var	nowTime=time.getHours()+"時"+time.getMinutes() +"分"+time.getSeconds()+"秒";
-	    io.emit('chat message', newUser+':'+msg+'    時間: '+nowTime);
+	    io.emit('chat message', newUser+':'+msg);
 	  });
 
   socket.on('disconnect',function(){
 	var time=new Date();
 	var nowTime=time.getHours()+"時"+time.getMinutes() +"分"+time.getSeconds()+"秒";
 	userList.splice(userList.indexOf(newUser),1);
-	io.sockets.emit('Comming message',newUser+'離線了，在線名單:'+userList);
-	io.sockets.emit('Comming message','現在人數:'+userList.length);
+	//io.sockets.emit('Comming message',newUser+'離線了，在線名單:'+userList);
+	io.sockets.emit('Comming message',newUser+'離線了，在線名單:'+userList+'，現在人數:'+userList.length);
    });
 
 });
